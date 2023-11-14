@@ -27,10 +27,6 @@ Route::controller(App\Http\Controllers\Auth\RegisterController::class)->group(fu
     Route::post('auth/store', 'store')->name('auth.store');
 });
 
-Route::get('home', function () {
-    return view('home');
-})->name('home')->middleware('auth');
-
 Route::post('/logout', function () {
     auth()->logout();
     request()->session()->invalidate();
@@ -38,5 +34,10 @@ Route::post('/logout', function () {
     return redirect('/');
 })->name('logout')->middleware('auth');
 
-Route::resource('data-rekening', App\Http\Controllers\DataRekeningController::class)->middleware('auth');
-Route::resource('referensi-bank', App\Http\Controllers\ReferensiBankController::class)->middleware('auth');
+Route::get('home', function () {
+    return view('home');
+})->name('home')->middleware('auth');
+
+Route::resource('data-rekening', App\Http\Controllers\DataRekeningController::class)->middleware('can:user');
+Route::resource('referensi-bank', App\Http\Controllers\ReferensiBankController::class)->middleware('can:manager');
+Route::resource('user', App\Http\Controllers\UserController::class)->middleware('can:manager');

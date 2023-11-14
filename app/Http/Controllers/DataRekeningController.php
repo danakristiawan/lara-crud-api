@@ -12,7 +12,9 @@ class DataRekeningController extends Controller
      */
     public function index()
     {
-        return view('data_rekening.index');
+        return view('data_rekening.index', [
+            'dataRekening' => DataRekening::persatker()->paginate(10),
+        ]);
     }
 
     /**
@@ -20,7 +22,7 @@ class DataRekeningController extends Controller
      */
     public function create()
     {
-        //
+        return view('data_rekening.create');
     }
 
     /**
@@ -28,7 +30,21 @@ class DataRekeningController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // $request->validate([
+        //     'kode_satker' => 'required',
+        //     'bank' => 'required',
+        //     'nomor' => 'required',
+        //     'tanggal' => 'required',
+        //     'tipe' => 'required',
+        //     'nominal' => 'required',
+        //     'uraian' => 'required',
+        // ]);
+
+        $request->validate($this->validation());
+
+        DataRekening::create($request->all());
+
+        return redirect()->route('data-rekening.index')->with('success', 'Data has been created successfully!');
     }
 
     /**
@@ -36,7 +52,7 @@ class DataRekeningController extends Controller
      */
     public function show(DataRekening $dataRekening)
     {
-        //
+        return view('data_rekening.show', compact('dataRekening'));
     }
 
     /**
@@ -44,7 +60,7 @@ class DataRekeningController extends Controller
      */
     public function edit(DataRekening $dataRekening)
     {
-        //
+        return view('data_rekening.edit', compact('dataRekening'));
     }
 
     /**
@@ -52,7 +68,11 @@ class DataRekeningController extends Controller
      */
     public function update(Request $request, DataRekening $dataRekening)
     {
-        //
+        $request->validate($this->validation());
+
+        $dataRekening->fill($request->post())->save();
+
+        return redirect()->route('data-rekening.index')->with('success', 'Data has been updated successfully!');
     }
 
     /**
@@ -60,6 +80,20 @@ class DataRekeningController extends Controller
      */
     public function destroy(DataRekening $dataRekening)
     {
-        //
+        $dataRekening->delete();
+        return redirect()->route('data-rekening.index')->with('success', 'Data has been deleted successfully!');
+    }
+
+    public function validation()
+    {
+        return [
+            'kode_satker' => 'required',
+            'bank' => 'required',
+            'nomor' => 'required',
+            'tanggal' => 'required',
+            'tipe' => 'required',
+            'nominal' => 'required',
+            'uraian' => 'required',
+        ];
     }
 }

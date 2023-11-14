@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('tipe');
             $table->string('nominal');
             $table->string('uraian');
-            $table->string('status');
+            $table->string('status')->default('0');
             $table->timestamps();
         });
     }
