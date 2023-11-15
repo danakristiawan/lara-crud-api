@@ -10,14 +10,33 @@
 </head>
 
 <body>
-    <div class="container mt-5">
+    <nav class="navbar bg-light mb-2">
+        {{-- <nav class="navbar mb-3" style="background-color: #e9f2fc;"> --}}
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{{ route('home') }}">
+                <img src="{{ asset('images/apik-logo-clear.png') }}" alt="Bootstrap" width="30" height="24"
+                    class="d-inline-block align-text-top"> Apik
+            </a>
+            @auth
+                <div class="div">
+                    <form action="{{ route('logout') }}" method="post">
+                        @csrf
+                        <input type="submit" class="btn btn-sm btn-primary" value="Logout">
+                    </form>
+                </div>
+            @else
+                <a href="{{ route('login') }}" class="btn btn-sm btn-primary">Login</a>
+            @endauth
+        </div>
+    </nav>
+    <div class="container-fluid">
         <div class="row">
-            <div class="col-lg-3 mb-3">
+            <div class="col-lg-2 mb-3">
                 <div class="list-group">
                     @include('layouts.sidebar')
                 </div>
             </div>
-            <div class="col-lg-9">
+            <div class="col-lg-10">
                 <div class="card">
                     <div class="card-body">
                         @yield('content')

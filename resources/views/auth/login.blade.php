@@ -26,5 +26,6 @@
             @enderror
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
+        <a href="{{ route('redirect') }}" class="btn btn-primary">Login Using SSO</a>
     </form>
 @endsection

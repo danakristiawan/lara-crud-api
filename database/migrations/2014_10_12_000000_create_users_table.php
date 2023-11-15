@@ -17,7 +17,8 @@ return new class extends Migration
             $table->string('nip')->unique();
             $table->string('password');
             $table->string('kode_satker', 6)->default('411792');
-            $table->enum('role', ['admin','manager','user']) ->default('user');
+            $table->string('role')->default('user');
+            $table->string('api_token', 60);
             $table->rememberToken();
             $table->timestamps();
         });

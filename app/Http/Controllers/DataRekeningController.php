@@ -30,18 +30,7 @@ class DataRekeningController extends Controller
      */
     public function store(Request $request)
     {
-        // $request->validate([
-        //     'kode_satker' => 'required',
-        //     'bank' => 'required',
-        //     'nomor' => 'required',
-        //     'tanggal' => 'required',
-        //     'tipe' => 'required',
-        //     'nominal' => 'required',
-        //     'uraian' => 'required',
-        // ]);
-
         $request->validate($this->validation());
-
         DataRekening::create($request->all());
 
         return redirect()->route('data-rekening.index')->with('success', 'Data has been created successfully!');
@@ -69,7 +58,6 @@ class DataRekeningController extends Controller
     public function update(Request $request, DataRekening $dataRekening)
     {
         $request->validate($this->validation());
-
         $dataRekening->fill($request->post())->save();
 
         return redirect()->route('data-rekening.index')->with('success', 'Data has been updated successfully!');

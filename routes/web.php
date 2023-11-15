@@ -17,7 +17,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-//Auth
+// Manual Login
 Route::controller(App\Http\Controllers\Auth\LoginController::class)->group(function () {
     Route::get('login', 'login')->name('login');
     Route::post('authenticate', 'authenticate')->name('authenticate');
@@ -26,7 +26,6 @@ Route::controller(App\Http\Controllers\Auth\RegisterController::class)->group(fu
     Route::get('auth/register', 'create')->name('auth.register');
     Route::post('auth/store', 'store')->name('auth.store');
 });
-
 Route::post('/logout', function () {
     auth()->logout();
     request()->session()->invalidate();
@@ -34,10 +33,18 @@ Route::post('/logout', function () {
     return redirect('/');
 })->name('logout')->middleware('auth');
 
+// Login Using SSO
+Route::controller(App\Http\Controllers\Auth\SsoController::class)->group(function () {
+    Route::get('redirect', 'redirect')->name('redirect');
+    Route::get('callback', 'callback')->name('callback');
+    Route::get('signout', 'signout')->name('signout')->middleware('auth');
+});
+
+
 Route::get('home', function () {
     return view('home');
 })->name('home')->middleware('auth');
 
-Route::resource('data-rekening', App\Http\Controllers\DataRekeningController::class)->middleware('can:user');
-Route::resource('referensi-bank', App\Http\Controllers\ReferensiBankController::class)->middleware('can:manager');
-Route::resource('user', App\Http\Controllers\UserController::class)->middleware('can:manager');
+Route::resource('data-rekening', App\Http\Controllers\DataRekeningController::class)->middleware('can:operator');
+Route::resource('referensi-bank', App\Http\Controllers\ReferensiBankController::class)->middleware('can:supervisor');
+Route::resource('user', App\Http\Controllers\UserController::class)->middleware('can:supervisor');

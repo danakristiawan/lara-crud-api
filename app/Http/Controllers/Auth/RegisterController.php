@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -28,6 +29,7 @@ class RegisterController extends Controller
             'nama' => $request->nama,
             'nip' => $request->nip,
             'password' => Hash::make($request->password),
+            'api_token' => Str::random(60),
         ]);
 
         if (Auth::attempt(['nip' => $user->nip, 'password' => $request->password])) {

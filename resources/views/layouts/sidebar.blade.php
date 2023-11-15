@@ -2,11 +2,11 @@
     <a href="{{ route('home') }}"
         class="list-group-item list-group-item-action {{ Request::is('home') ? 'active' : '' }}">Home
         Page</a>
-    @can('user')
+    @can('operator')
         <a href="{{ route('data-rekening.index') }}"
             class="list-group-item list-group-item-action {{ Request::is('data-rekening') ? 'active' : '' }}">Data Rekening</a>
     @endcan
-    @can('manager')
+    @can('supervisor')
         <a href="{{ route('referensi-bank.index') }}"
             class="list-group-item list-group-item-action {{ Request::is('referensi-bank') ? 'active' : '' }}">Referensi Bank</a>
         <a href="{{ route('user.index') }}"
