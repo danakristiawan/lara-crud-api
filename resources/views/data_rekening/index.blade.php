@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Home Page')
+@section('title', 'Ref Rekening Page')
 
 @section('content')
     @if (session('success'))
@@ -53,16 +53,3 @@
         </table>
     </div>
 @endsection
-
-@push('script')
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            $(document).ready(function() {
-                $('#start').click(function(e) {
-                    e.preventDefault();
-                    console.log('start');
-                });
-            });
-        });
-    </script>
-@endpush

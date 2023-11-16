@@ -12,7 +12,9 @@ class ReferensiBankController extends Controller
      */
     public function index()
     {
-        return view('referensi_bank.index');
+        return view('referensi_bank.index', [
+            'referensiBank' => ReferensiBank::paginate(10),
+        ]);
     }
 
     /**
@@ -20,7 +22,7 @@ class ReferensiBankController extends Controller
      */
     public function create()
     {
-        //
+        return view('referensi_bank.create');
     }
 
     /**
@@ -28,7 +30,10 @@ class ReferensiBankController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate($this->validation());
+        ReferensiBank::create($request->all());
+
+        return redirect()->route('data-rekening.index')->with('success', 'Data has been created successfully!');
     }
 
     /**
@@ -36,7 +41,7 @@ class ReferensiBankController extends Controller
      */
     public function show(ReferensiBank $referensiBank)
     {
-        //
+        return view('referensi_bank.show', compact('referensiBank'));
     }
 
     /**
@@ -44,7 +49,7 @@ class ReferensiBankController extends Controller
      */
     public function edit(ReferensiBank $referensiBank)
     {
-        //
+        return view('referensi_bank.edit', compact('referensiBank'));
     }
 
     /**
@@ -52,7 +57,10 @@ class ReferensiBankController extends Controller
      */
     public function update(Request $request, ReferensiBank $referensiBank)
     {
-        //
+        $request->validate($this->validation());
+        $referensiBank->fill($request->post())->save();
+
+        return redirect()->route('data-rekening.index')->with('success', 'Data has been updated successfully!');
     }
 
     /**
@@ -60,6 +68,23 @@ class ReferensiBankController extends Controller
      */
     public function destroy(ReferensiBank $referensiBank)
     {
-        //
+        $referensiBank->delete();
+        return redirect()->route('data-rekening.index')->with('success', 'Data has been deleted successfully!');
+    }
+
+    public function validation()
+    {
+        return [
+            'kode_satker' => 'required',
+            'nama_satker' => 'required',
+            'nomor_rekening' => 'required',
+            'uraian_rekening' => 'required',
+            'jenis_rekening' => 'required',
+            'nama_bank' => 'required',
+            'surat_izin' => 'required',
+            'tanggal_surat' => 'required',
+            'status_rekening' => 'required',
+        ];
     }
 }
+

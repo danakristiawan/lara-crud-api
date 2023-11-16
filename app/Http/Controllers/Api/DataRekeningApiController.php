@@ -96,7 +96,6 @@ class DataRekeningApiController extends Controller
     public function destroy(string $id)
     {
         try {
-            // $dataRekening = DataRekening::destroy($id);
             $dataRekening = DataRekening::findorFail($id)->delete();
         } catch (Exception $e) {
             return response()->json([
