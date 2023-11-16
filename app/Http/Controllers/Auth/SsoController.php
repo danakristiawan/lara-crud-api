@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
-use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -56,7 +55,6 @@ class SsoController extends Controller
                             'nip' => $userInfo->nip,
                             'password' => Hash::make($userInfo->nip),
                             'kode_satker' => $userInfo->kode_satker,
-                            'api_token' => Str::random(60),
                         ]);
 
                         Auth::login($user);

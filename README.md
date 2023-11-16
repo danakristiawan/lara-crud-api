@@ -12,6 +12,7 @@
 - templating blade - sidebar, navbar
 - simple crud
 - login using sso
-- rest api
+- rest api - sanctum
 - crud using modal
+- data relationship
 

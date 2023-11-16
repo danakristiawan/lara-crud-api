@@ -17,10 +17,9 @@ use App\Http\Controllers\Api\DataRekeningApiController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::post('login', [LoginApiController::class, 'index']);
+Route::post('logout', [LoginApiController::class, 'logout']);
 
-Route::resource('data-rekening', DataRekeningApiController::class);
-// Route::resource('user', UserApiController::class)->middleware('auth:api');
-Route::resource('user', UserApiController::class);
+Route::resource('data-rekening', DataRekeningApiController::class)->middleware('auth:sanctum');
+Route::resource('user', UserApiController::class)->middleware('auth:sanctum');
+
