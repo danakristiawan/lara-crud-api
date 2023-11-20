@@ -13,6 +13,5 @@
 - simple crud
 - login using sso
 - rest api - sanctum
-- crud using modal
-- data relationship
+- dompdf
 

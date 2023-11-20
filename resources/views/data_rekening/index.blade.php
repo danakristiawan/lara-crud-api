@@ -8,6 +8,7 @@
     @endif
     <div class="table-responsive">
         <a href="{{ route('data-rekening.create') }}" class="btn btn-sm btn-primary mb-2">Rekam</a>
+        <a href="{{ route('data-rekening.print') }}" class="btn btn-sm btn-primary mb-2">Cetak</a>
         <table class="table table-sm">
             <thead>
                 <tr>
@@ -37,7 +38,8 @@
                         <td>{{ $r->status }}</td>
                         <td>
                             <div class="btn-group" role="group">
-                                <a href="{{ route('data-rekening.show', $r->id) }}" class="btn btn-sm btn-primary">Detail</a>
+                                <a href="{{ route('data-rekening.show', $r->id) }}"
+                                    class="btn btn-sm btn-primary">Detail</a>
                                 <a href="{{ route('data-rekening.edit', $r->id) }}" class="btn btn-sm btn-primary">Ubah</a>
                                 <form action="{{ route('data-rekening.destroy', $r->id) }}" method="post">
                                     @csrf

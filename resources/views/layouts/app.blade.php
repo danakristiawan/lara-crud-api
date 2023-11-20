@@ -5,16 +5,16 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>App Name - @yield('title')</title>
+    <title>APIK - @yield('title')</title>
+    <link rel="shortcut icon" href="{{ asset('apik-logo-clear.png') }}" type="image/x-icon">
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 
 <body>
     <nav class="navbar bg-light mb-2">
-        {{-- <nav class="navbar mb-3" style="background-color: #e9f2fc;"> --}}
         <div class="container-fluid">
             <a class="navbar-brand" href="{{ route('home') }}">
-                <img src="{{ asset('images/apik-logo-clear.png') }}" alt="Bootstrap" width="30" height="24"
+                <img src="{{ asset('apik-logo-clear.png') }}" alt="Bootstrap" width="30" height="24"
                     class="d-inline-block align-text-top"> Apik
             </a>
             @auth

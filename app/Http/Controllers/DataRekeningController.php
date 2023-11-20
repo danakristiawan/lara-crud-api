@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use PDF;
 use App\Models\DataRekening;
 use Illuminate\Http\Request;
 
@@ -83,5 +84,12 @@ class DataRekeningController extends Controller
             'nominal' => 'required',
             'uraian' => 'required',
         ];
+    }
+
+    public function print()
+    {
+        $dataRekening = DataRekening::all();
+        $pdf = PDF::loadview('data_rekening.laporan', ['dataRekening'=>$dataRekening]);
+    	return $pdf->stream('laporan.pdf');
     }
 }

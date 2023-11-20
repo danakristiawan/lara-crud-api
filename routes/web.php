@@ -45,6 +45,8 @@ Route::get('home', function () {
     return view('home');
 })->name('home')->middleware('auth');
 
+Route::get('data-rekening/print', ['App\Http\Controllers\DataRekeningController', 'print'])->name('data-rekening.print')->middleware('can:operator');
+
 Route::resource('data-rekening', App\Http\Controllers\DataRekeningController::class)->middleware('can:operator');
 Route::resource('referensi-bank', App\Http\Controllers\ReferensiBankController::class)->middleware('can:supervisor');
 Route::resource('user', App\Http\Controllers\UserController::class)->middleware('can:supervisor');
