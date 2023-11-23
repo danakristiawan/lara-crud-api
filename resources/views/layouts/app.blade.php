@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>APIK - @yield('title')</title>
-    <link rel="shortcut icon" href="{{ asset('apik-logo-clear.png') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset('img/apik-logo-clear.png') }}" type="image/x-icon">
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 
@@ -14,7 +14,7 @@
     <nav class="navbar bg-light mb-2">
         <div class="container-fluid">
             <a class="navbar-brand" href="{{ route('home') }}">
-                <img src="{{ asset('apik-logo-clear.png') }}" alt="Bootstrap" width="30" height="24"
+                <img src="{{ asset('img/apik-logo-clear.png') }}" alt="Bootstrap" width="30" height="24"
                     class="d-inline-block align-text-top"> Apik
             </a>
             @auth
@@ -45,7 +45,7 @@
             </div>
         </div>
     </div>
-    @stack('script')
+    @stack('js')
 </body>
 
 </html>

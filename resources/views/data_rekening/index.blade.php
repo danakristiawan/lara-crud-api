@@ -8,7 +8,7 @@
     @endif
     <div class="table-responsive">
         <a href="{{ route('data-rekening.create') }}" class="btn btn-sm btn-primary mb-2">Rekam</a>
-        <a href="{{ route('data-rekening.print') }}" class="btn btn-sm btn-primary mb-2">Cetak</a>
+        <a href="{{ route('data-rekening.print') }}" class="btn btn-sm btn-primary mb-2" target="_blank">Cetak</a>
         <table class="table table-sm">
             <thead>
                 <tr>

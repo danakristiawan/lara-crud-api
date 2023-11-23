@@ -4,17 +4,29 @@ namespace App\Http\Controllers;
 
 use App\Models\ReferensiBank;
 use Illuminate\Http\Request;
+use Datatables;
 
 class ReferensiBankController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('referensi_bank.index', [
-            'referensiBank' => ReferensiBank::paginate(10),
-        ]);
+        if ($request->ajax()) {
+            $data = ReferensiBank::all();
+            return Datatables::of($data)
+                    ->addIndexColumn()
+                    ->addColumn('action', function($row){
+                        $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm editProduct">Edit</a>';
+                        $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteProduct">Delete</a>';
+                        return $btn;
+                    })
+                    ->rawColumns(['action'])
+                    ->make(true);
+        }
+        
+        return view('referensi_bank.index');
     }
 
     /**

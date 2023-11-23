@@ -7,55 +7,18 @@
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
     <div class="table-responsive">
-        <a href="{{ route('referensi-bank.create') }}" class="btn btn-sm btn-primary mb-2">Rekam</a>
-        <table class="table table-sm table-hover">
+        <a href="javascript:void(0)" id="createData" class="btn btn-sm btn-primary mb-2">Rekam</a>
+        <table class="table table-sm table-hover data-table">
             <thead>
                 <tr>
-                    <th>No</th>
+                    <th>no</th>
                     <th>kode</th>
                     <th>nama</th>
                     <th>nomor</th>
-                    <th>uraian</th>
-                    <th>jenis</th>
-                    <th>bank</th>
-                    <th>surat</th>
-                    <th>tanggal</th>
-                    <th>status</th>
                     <th>aksi</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($referensiBank as $r)
-                    <tr>
-                        <td>{{ $loop->iteration }}</td>
-                        <td>{{ $r->kode_satker }}</td>
-                        <td>{{ $r->nama_satker }}</td>
-                        <td>{{ $r->nomor_rekening }}</td>
-                        <td>{{ $r->uraian_rekening }}</td>
-                        <td>{{ $r->jenis_rekening }}</td>
-                        <td>{{ $r->nama_bank }}</td>
-                        <td>{{ $r->surat_izin }}</td>
-                        <td>{{ $r->tanggal_surat }}</td>
-                        <td>{{ $r->status_rekening }}</td>
-                        <td>
-                            <div class="btn-group" role="group">
-                                <a href="{{ route('referensi-bank.show', $r->id) }}"
-                                    class="btn btn-sm btn-primary">Detail</a>
-                                <a href="{{ route('referensi-bank.edit', $r->id) }}" class="btn btn-sm btn-primary">Ubah</a>
-                                <form action="{{ route('referensi-bank.destroy', $r->id) }}" method="post">
-                                    @csrf
-                                    @method('delete')
-                                    <button class="btn btn-sm btn-primary" type="submit"
-                                        onclick="return confirm('are you sure?');">Hapus</button>
-                                </form>
-                                <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#exampleModal">
-                                    modal
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-                @endforeach
             </tbody>
         </table>
     </div>
@@ -80,14 +43,46 @@
     </div>
 @endsection
 
-@push('script')
+@push('js')
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             $(document).ready(function() {
-                $('#start').click(function(e) {
-                    e.preventDefault();
-                    console.log('start');
+
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
                 });
+
+                var table = $('.data-table').DataTable({
+                    processing: true,
+                    serverSide: true,
+                    ajax: "{{ route('referensi-bank.index') }}",
+                    columns: [{
+                            data: 'id',
+                            name: 'id'
+                        },
+                        {
+                            data: 'kode',
+                            name: 'kode'
+                        },
+                        {
+                            data: 'nama',
+                            name: 'nama'
+                        },
+                        {
+                            data: 'nomor',
+                            name: 'nomor'
+                        },
+                        {
+                            data: 'action',
+                            name: 'action',
+                            orderable: false,
+                            searchable: false
+                        },
+                    ]
+                });
+
             });
         });
     </script>
