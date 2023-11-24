@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\ReferensiBank;
 use Illuminate\Http\Request;
-use Datatables;
+use DataTables;
+// use Yajra\DataTables\Facades\DataTables;
 
 class ReferensiBankController extends Controller
 {
@@ -14,18 +15,20 @@ class ReferensiBankController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = ReferensiBank::all();
-            return Datatables::of($data)
+            $data = ReferensiBank::latest()->get();
+            return DataTables::of($data)
                     ->addIndexColumn()
                     ->addColumn('action', function($row){
-                        $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm editProduct">Edit</a>';
-                        $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteProduct">Delete</a>';
-                        return $btn;
+                        $detail = '<a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#myModal" data-id="'.$row->id.'" class="btn btn-primary btn-sm" id="detail">Detail</a>';
+                        $ubah = '<a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#myModal" data-id="'.$row->id.'" class="btn btn-primary btn-sm ms-1" id="ubah">Ubah</a>';
+                        $hapus = ' <a href="javascript:void(0)" data-id="'.$row->id.'" class="btn btn-primary btn-sm" id="hapus">Hapus</a>';
+                        $button = $detail.$ubah.$hapus;
+                        return $button;
                     })
                     ->rawColumns(['action'])
                     ->make(true);
         }
-        
+
         return view('referensi_bank.index');
     }
 
@@ -34,7 +37,6 @@ class ReferensiBankController extends Controller
      */
     public function create()
     {
-        return view('referensi_bank.create');
     }
 
     /**
@@ -45,7 +47,7 @@ class ReferensiBankController extends Controller
         $request->validate($this->validation());
         ReferensiBank::create($request->all());
 
-        return redirect()->route('data-rekening.index')->with('success', 'Data has been created successfully!');
+        return response()->json(['success' => 'Data has been created successfully!']);
     }
 
     /**
@@ -53,7 +55,7 @@ class ReferensiBankController extends Controller
      */
     public function show(ReferensiBank $referensiBank)
     {
-        return view('referensi_bank.show', compact('referensiBank'));
+        return response()->json($referensiBank);
     }
 
     /**
@@ -61,7 +63,7 @@ class ReferensiBankController extends Controller
      */
     public function edit(ReferensiBank $referensiBank)
     {
-        return view('referensi_bank.edit', compact('referensiBank'));
+        return response()->json($referensiBank);
     }
 
     /**
@@ -72,7 +74,7 @@ class ReferensiBankController extends Controller
         $request->validate($this->validation());
         $referensiBank->fill($request->post())->save();
 
-        return redirect()->route('data-rekening.index')->with('success', 'Data has been updated successfully!');
+        return response()->json(['success' => 'Data has been updated successfully!']);
     }
 
     /**
@@ -81,7 +83,8 @@ class ReferensiBankController extends Controller
     public function destroy(ReferensiBank $referensiBank)
     {
         $referensiBank->delete();
-        return redirect()->route('data-rekening.index')->with('success', 'Data has been deleted successfully!');
+
+        return response()->json(['success' => 'Data has been deleted successfully!']);
     }
 
     public function validation()
