@@ -16,4 +16,5 @@
 - dompdf
 - jquery
 - ajax
+- toastr
 

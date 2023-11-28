@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
-            $table->string('nip')->unique();
-            $table->string('password');
+            $table->string('nip');
+            $table->string('password')->nullable();
             $table->string('kode_satker', 6)->default('411792');
             $table->string('role')->default('user');
             $table->rememberToken();

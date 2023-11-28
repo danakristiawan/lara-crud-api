@@ -5,13 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\ReferensiBank;
 use Illuminate\Http\Request;
 use DataTables;
-// use Yajra\DataTables\Facades\DataTables;
 
 class ReferensiBankController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index(Request $request)
     {
         if ($request->ajax()) {
@@ -28,58 +24,33 @@ class ReferensiBankController extends Controller
                     ->rawColumns(['action'])
                     ->make(true);
         }
-
         return view('referensi_bank.index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $request->validate($this->validation());
         ReferensiBank::create($request->all());
-
         return response()->json(['success' => 'Data has been created successfully!']);
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(ReferensiBank $referensiBank)
     {
         return response()->json($referensiBank);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(ReferensiBank $referensiBank)
     {
         return response()->json($referensiBank);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, ReferensiBank $referensiBank)
     {
         $request->validate($this->validation());
         $referensiBank->fill($request->post())->save();
-
         return response()->json(['success' => 'Data has been updated successfully!']);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(ReferensiBank $referensiBank)
     {
         $referensiBank->delete();

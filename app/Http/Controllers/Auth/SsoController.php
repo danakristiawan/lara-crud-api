@@ -53,7 +53,7 @@ class SsoController extends Controller
                         $user = User::updateOrCreate([
                             'nama' => $userInfo->name,
                             'nip' => $userInfo->nip,
-                            'password' => Hash::make($userInfo->nip),
+                            // 'password' => Hash::make($userInfo->nip),
                             'kode_satker' => $userInfo->kode_satker,
                         ]);
 

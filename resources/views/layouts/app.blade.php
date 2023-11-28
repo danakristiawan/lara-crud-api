@@ -18,12 +18,16 @@
                     class="d-inline-block align-text-top"> Apik
             </a>
             @auth
-                <div class="div">
-                    <form action="{{ route('logout') }}" method="post">
-                        @csrf
-                        <input type="submit" class="btn btn-sm btn-primary" value="Logout">
-                    </form>
-                </div>
+                @if (Session::get('userInfo'))
+                    <a href="{{ route('signout') }}" class="btn btn-sm btn-primary">Logout</a>
+                @else
+                    <div class="div">
+                        <form action="{{ route('logout') }}" method="post">
+                            @csrf
+                            <input type="submit" class="btn btn-sm btn-primary" value="Logout">
+                        </form>
+                    </div>
+                @endif
             @else
                 <a href="{{ route('login') }}" class="btn btn-sm btn-primary">Login</a>
             @endauth

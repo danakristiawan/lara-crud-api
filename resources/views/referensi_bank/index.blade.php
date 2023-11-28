@@ -3,9 +3,6 @@
 @section('title', 'Ref Bank Page')
 
 @section('content')
-    @if (session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
-    @endif
     <div class="table-responsive">
         <a href="javascript:void(0)" class="btn btn-sm btn-primary mb-2" data-bs-toggle="modal" data-bs-target="#myModal"
             id="rekam">Rekam</a>
@@ -211,6 +208,7 @@
                             url: "{{ route('referensi-bank.store') }}" + '/' + id,
                             success: function(data) {
                                 table.draw();
+                                toastr.success('Data has been deleted successfully!');
                             },
                             error: function(data) {
                                 console.log('Error:', data);
@@ -230,6 +228,7 @@
                             $('#myForm').trigger("reset");
                             $('#btnTutup').click();
                             table.draw();
+                            toastr.success('Data has been created successfully!');
                         },
                         error: function(data) {
                             console.log('Error:', data);
@@ -249,6 +248,7 @@
                             $('#myForm').trigger("reset");
                             $('#btnTutup').click();
                             table.draw();
+                            toastr.success('Data has been updated successfully!');
                         },
                         error: function(data) {
                             console.log('Error:', data);
