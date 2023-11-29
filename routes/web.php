@@ -50,3 +50,5 @@ Route::get('data-rekening/print', ['App\Http\Controllers\DataRekeningController'
 Route::resource('data-rekening', App\Http\Controllers\DataRekeningController::class)->middleware('can:operator');
 Route::resource('referensi-bank', App\Http\Controllers\ReferensiBankController::class)->middleware('can:supervisor');
 Route::resource('user', App\Http\Controllers\UserController::class)->middleware('can:supervisor');
+
+Route::get('bni', ['App\Http\Controllers\DataBniController', 'index'])->name('bni');

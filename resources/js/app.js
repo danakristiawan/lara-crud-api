@@ -12,3 +12,6 @@ window.toastr.options = {
   "progressBar": true,
   "showDuration": "100",
 };
+
+import Chart from 'chart.js/auto';
+window.Chart = Chart;

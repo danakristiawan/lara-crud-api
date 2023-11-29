@@ -81,8 +81,10 @@
                     serverSide: true,
                     ajax: "{{ route('user.index') }}",
                     columns: [{
-                            data: 'id',
-                            name: 'id'
+                            data: null,
+                            render: function(data, type, row, meta) {
+                                return meta.row + meta.settings._iDisplayStart + 1;
+                            }
                         },
                         {
                             data: 'nama',
@@ -206,9 +208,9 @@
                             },
                             error: function(data) {
                                 console.log(data.responseJSON.errors);
-                                var data = data.responseJSON.errors;
+                                const err = data.responseJSON.errors;
                                 errorsHtml = '<div class="alert alert-danger"><ul>';
-                                $.each(data, function(key, value) {
+                                $.each(err, function(key, value) {
                                     errorsHtml += '<li>' + value[0] + '</li>';
                                 });
                                 errorsHtml += '</ul></di>';
