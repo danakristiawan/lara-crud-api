@@ -39,11 +39,6 @@ class ReferensiBankController extends Controller
         return response()->json($referensiBank);
     }
 
-    public function edit(ReferensiBank $referensiBank)
-    {
-        return response()->json($referensiBank);
-    }
-
     public function update(Request $request, ReferensiBank $referensiBank)
     {
         $request->validate($this->validation());

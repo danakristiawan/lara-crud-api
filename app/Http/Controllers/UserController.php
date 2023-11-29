@@ -39,11 +39,6 @@ class UserController extends Controller
         return response()->json($user);
     }
 
-    public function edit(string $user)
-    {
-        return response()->json($user);
-    }
-
     public function update(Request $request, User $user)
     {
         $request->validate($this->validation());

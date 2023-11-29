@@ -31,6 +31,8 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
+                        <div class="mb-3" id="errorList"></div>
+                        <input type="hidden" name="id" id="id" value="">
                         <div class="mb-3">
                             <label for="nama" class="form-label">Nama</label>
                             <input type="text" name="nama" class="form-control" id="nama" value="">
@@ -56,7 +58,6 @@
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
                             id="btnTutup">Tutup</button>
                         <button type="button" class="btn btn-primary" id="btnSimpan">Simpan</button>
-                        <button type="button" class="btn btn-primary" id="btnUbah" value="">Ubah</button>
                     </div>
                 </form>
             </div>
@@ -119,30 +120,32 @@
                         $('#password').val(data.password);
                         $('#myModalLabel').html('Detail');
                         $('#btnSimpan').hide();
-                        $('#btnUbah').hide();
+                        $('#errorList').html('');
                     });
                 });
 
                 $('body').on('click', '#rekam', function() {
                     $('#myForm').trigger("reset");
                     $('#myModalLabel').html('Rekam');
-                    $('#btnUbah').hide();
+                    $('#btnSimpan').html('Simpan');
                     $('#btnSimpan').show();
+                    $('#errorList').html('');
                 });
 
                 $('body').on('click', '#ubah', function() {
                     const id = $(this).data('id');
-                    $.get("{{ route('user.index') }}" + '/' + id + '/edit', function(
+                    $.get("{{ route('user.index') }}" + '/' + id, function(
                         data) {
+                        $('#id').val(data.id);
                         $('#nama').val(data.nama);
                         $('#nip').val(data.nip);
                         $('#kode_satker').val(data.kode_satker);
                         $('#role').val(data.role);
                         $('#password').val(data.password);
                         $('#myModalLabel').html('Ubah');
-                        $('#btnSimpan').hide();
-                        $('#btnUbah').show();
-                        $('#btnUbah').val(data.id);
+                        $('#btnSimpan').html('Ubah');
+                        $('#btnSimpan').show();
+                        $('#errorList').html('');
                     })
                 });
 
@@ -164,42 +167,55 @@
                 });
 
                 $('body').on('click', '#btnSimpan', function(e) {
+                    const id = $('#id').val();
                     e.preventDefault();
-                    $.ajax({
-                        data: $('#myForm').serialize(),
-                        url: "{{ route('user.store') }}",
-                        type: "POST",
-                        dataType: 'json',
-                        success: function(data) {
-                            $('#myForm').trigger("reset");
-                            $('#btnTutup').click();
-                            table.draw();
-                            toastr.success('Data has been created successfully!');
-                        },
-                        error: function(data) {
-                            console.log('Error:', data);
-                        }
-                    });
-                });
-
-                $('body').on('click', '#btnUbah', function(e) {
-                    const id = $(this).val();
-                    e.preventDefault();
-                    $.ajax({
-                        data: $('#myForm').serialize(),
-                        url: "{{ route('user.index') }}" + '/' + id,
-                        type: "PUT",
-                        dataType: 'json',
-                        success: function(data) {
-                            $('#myForm').trigger("reset");
-                            $('#btnTutup').click();
-                            table.draw();
-                            toastr.success('Data has been updated successfully!');
-                        },
-                        error: function(data) {
-                            console.log('Error:', data);
-                        }
-                    });
+                    if ($(this).html() == 'Simpan') {
+                        $.ajax({
+                            data: $('#myForm').serialize(),
+                            url: "{{ route('user.store') }}",
+                            type: "POST",
+                            dataType: 'json',
+                            success: function(data) {
+                                $('#myForm').trigger("reset");
+                                $('#btnTutup').click();
+                                table.draw();
+                                toastr.success('Data has been created successfully!');
+                            },
+                            error: function(data) {
+                                console.log(data.responseJSON.errors);
+                                var data = data.responseJSON.errors;
+                                errorsHtml = '<div class="alert alert-danger"><ul>';
+                                $.each(data, function(key, value) {
+                                    errorsHtml += '<li>' + value[0] + '</li>';
+                                });
+                                errorsHtml += '</ul></di>';
+                                $('#errorList').html(errorsHtml);
+                            }
+                        });
+                    } else {
+                        $.ajax({
+                            data: $('#myForm').serialize(),
+                            url: "{{ route('user.index') }}" + '/' + id,
+                            type: "PUT",
+                            dataType: 'json',
+                            success: function(data) {
+                                $('#myForm').trigger("reset");
+                                $('#btnTutup').click();
+                                table.draw();
+                                toastr.success('Data has been updated successfully!');
+                            },
+                            error: function(data) {
+                                console.log(data.responseJSON.errors);
+                                var data = data.responseJSON.errors;
+                                errorsHtml = '<div class="alert alert-danger"><ul>';
+                                $.each(data, function(key, value) {
+                                    errorsHtml += '<li>' + value[0] + '</li>';
+                                });
+                                errorsHtml += '</ul></di>';
+                                $('#errorList').html(errorsHtml);
+                            }
+                        });
+                    }
                 });
 
             });

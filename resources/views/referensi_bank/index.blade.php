@@ -36,6 +36,8 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
+                        <div class="mb-3" id="errorList"></div>
+                        <input type="hidden" name="id" id="id" value="">
                         <div class="mb-3">
                             <label for="kode_satker" class="form-label">Kode Satker</label>
                             <input type="text" name="kode_satker" class="form-control" id="kode_satker" value="">
@@ -82,7 +84,6 @@
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
                             id="btnTutup">Tutup</button>
                         <button type="button" class="btn btn-primary" id="btnSimpan">Simpan</button>
-                        <button type="button" class="btn btn-primary" id="btnUbah" value="">Ubah</button>
                     </div>
                 </form>
             </div>
@@ -169,7 +170,7 @@
                         $('#status_rekening').val(data.status_rekening);
                         $('#myModalLabel').html('Detail');
                         $('#btnSimpan').hide();
-                        $('#btnUbah').hide();
+                        $('#errorList').html('');
                     });
                 });
 
@@ -177,13 +178,16 @@
                     $('#myForm').trigger("reset");
                     $('#myModalLabel').html('Rekam');
                     $('#btnUbah').hide();
+                    $('#btnSimpan').html('Simpan');
                     $('#btnSimpan').show();
+                    $('#errorList').html('');
                 });
 
                 $('body').on('click', '#ubah', function() {
                     const id = $(this).data('id');
-                    $.get("{{ route('referensi-bank.index') }}" + '/' + id + '/edit', function(
+                    $.get("{{ route('referensi-bank.index') }}" + '/' + id, function(
                         data) {
+                        $('#id').val(data.id);
                         $('#kode_satker').val(data.kode_satker);
                         $('#nama_satker').val(data.nama_satker);
                         $('#nomor_rekening').val(data.nomor_rekening);
@@ -194,9 +198,9 @@
                         $('#tanggal_surat').val(data.tanggal_surat);
                         $('#status_rekening').val(data.status_rekening);
                         $('#myModalLabel').html('Ubah');
-                        $('#btnSimpan').hide();
-                        $('#btnUbah').show();
-                        $('#btnUbah').val(data.id);
+                        $('#btnSimpan').html('Ubah');
+                        $('#btnSimpan').show();
+                        $('#errorList').html('');
                     })
                 });
 
@@ -218,42 +222,55 @@
                 });
 
                 $('body').on('click', '#btnSimpan', function(e) {
+                    const id = $('#id').val();
                     e.preventDefault();
-                    $.ajax({
-                        data: $('#myForm').serialize(),
-                        url: "{{ route('referensi-bank.store') }}",
-                        type: "POST",
-                        dataType: 'json',
-                        success: function(data) {
-                            $('#myForm').trigger("reset");
-                            $('#btnTutup').click();
-                            table.draw();
-                            toastr.success('Data has been created successfully!');
-                        },
-                        error: function(data) {
-                            console.log('Error:', data);
-                        }
-                    });
-                });
-
-                $('body').on('click', '#btnUbah', function(e) {
-                    const id = $(this).val();
-                    e.preventDefault();
-                    $.ajax({
-                        data: $('#myForm').serialize(),
-                        url: "{{ route('referensi-bank.index') }}" + '/' + id,
-                        type: "PUT",
-                        dataType: 'json',
-                        success: function(data) {
-                            $('#myForm').trigger("reset");
-                            $('#btnTutup').click();
-                            table.draw();
-                            toastr.success('Data has been updated successfully!');
-                        },
-                        error: function(data) {
-                            console.log('Error:', data);
-                        }
-                    });
+                    if ($(this).html() == 'Simpan') {
+                        $.ajax({
+                            data: $('#myForm').serialize(),
+                            url: "{{ route('referensi-bank.store') }}",
+                            type: "POST",
+                            dataType: 'json',
+                            success: function(data) {
+                                $('#myForm').trigger("reset");
+                                $('#btnTutup').click();
+                                table.draw();
+                                toastr.success('Data has been created successfully!');
+                            },
+                            error: function(data) {
+                                console.log(data.responseJSON.errors);
+                                var data = data.responseJSON.errors;
+                                errorsHtml = '<div class="alert alert-danger"><ul>';
+                                $.each(data, function(key, value) {
+                                    errorsHtml += '<li>' + value[0] + '</li>';
+                                });
+                                errorsHtml += '</ul></di>';
+                                $('#errorList').html(errorsHtml);
+                            }
+                        });
+                    } else {
+                        $.ajax({
+                            data: $('#myForm').serialize(),
+                            url: "{{ route('referensi-bank.index') }}" + '/' + id,
+                            type: "PUT",
+                            dataType: 'json',
+                            success: function(data) {
+                                $('#myForm').trigger("reset");
+                                $('#btnTutup').click();
+                                table.draw();
+                                toastr.success('Data has been updated successfully!');
+                            },
+                            error: function(data) {
+                                console.log(data.responseJSON.errors);
+                                var data = data.responseJSON.errors;
+                                errorsHtml = '<div class="alert alert-danger"><ul>';
+                                $.each(data, function(key, value) {
+                                    errorsHtml += '<li>' + value[0] + '</li>';
+                                });
+                                errorsHtml += '</ul></di>';
+                                $('#errorList').html(errorsHtml);
+                            }
+                        });
+                    }
                 });
 
             });
