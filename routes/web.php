@@ -52,3 +52,5 @@ Route::resource('referensi-bank', App\Http\Controllers\ReferensiBankController::
 Route::resource('user', App\Http\Controllers\UserController::class)->middleware('can:supervisor');
 
 Route::get('bni', ['App\Http\Controllers\DataBniController', 'index'])->name('bni');
+
+Route::get('grafik', 'App\Http\Controllers\ChartController@index')->name('grafik');
