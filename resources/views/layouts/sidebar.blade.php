@@ -5,6 +5,10 @@
     @can('operator')
         <a href="{{ route('data-rekening.index') }}"
             class="list-group-item list-group-item-action {{ Request::is('data-rekening') ? 'active' : '' }}">Data Rekening</a>
+        <a href="{{ route('rekening-koran.index') }}"
+            class="list-group-item list-group-item-action {{ Request::is('rekening-koran') ? 'active' : '' }}">Rekening Koran</a>
+        <a href="{{ route('bni.index') }}"
+            class="list-group-item list-group-item-action {{ Request::is('bni') ? 'active' : '' }}">Data BNI</a>
     @endcan
     @can('supervisor')
         <a href="{{ route('referensi-bank.index') }}"

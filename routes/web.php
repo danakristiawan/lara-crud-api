@@ -54,3 +54,7 @@ Route::resource('user', App\Http\Controllers\UserController::class)->middleware(
 Route::get('bni', ['App\Http\Controllers\DataBniController', 'index'])->name('bni');
 
 Route::get('grafik', 'App\Http\Controllers\ChartController@index')->name('grafik');
+
+Route::resource('rekening-koran', App\Http\Controllers\RekeningKoranController::class);
+
+Route::get('bni', 'App\Http\Controllers\DataBniController@index')->name('bni.index');
