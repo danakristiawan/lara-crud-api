@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Database\Seeders\UserSeeder;
+use Database\Seeders\DataRekeningSeeder;
 use Database\Seeders\ReferensiBankSeeder;
 
 class DatabaseSeeder extends Seeder
@@ -20,8 +22,10 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        $this->call([
-            // ReferensiBankSeeder::class,
-        ]);
+        // $this->call([
+        //     ReferensiBankSeeder::class,
+        //     DataRekeningSeeder::class,
+        //     UserSeeder::class,
+        // ]);
     }
 }
