@@ -3,6 +3,7 @@
 @section('title', 'Data BNI Page')
 
 @section('content')
+
     <div class="table-responsive">
         <table class="table table-sm table-hover data-table">
             <thead>
