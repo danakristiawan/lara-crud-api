@@ -48,7 +48,6 @@ Route::get('home', function () {
 Route::get('data-rekening/print', ['App\Http\Controllers\DataRekeningController', 'print'])->name('data-rekening.print')->middleware('can:operator');
 
 Route::resource('data-rekening', App\Http\Controllers\DataRekeningController::class)->middleware('can:operator');
-Route::resource('referensi-bank', App\Http\Controllers\ReferensiBankController::class)->middleware('can:supervisor');
 // Route::resource('bni', App\Http\Controllers\DataBniController::class)->middleware('can:supervisor');
 Route::resource('user', App\Http\Controllers\UserController::class)->middleware('can:supervisor');
 
@@ -56,7 +55,8 @@ Route::resource('user', App\Http\Controllers\UserController::class)->middleware(
 
 Route::get('grafik', 'App\Http\Controllers\ChartController@index')->name('grafik');
 
-Route::resource('rekening-koran', App\Http\Controllers\RekeningKoranController::class);
+Route::resource('referensi-bank', App\Http\Controllers\ReferensiBankController::class)->middleware('can:supervisor');
+Route::resource('rekening-koran', App\Http\Controllers\RekeningKoranController::class)->middleware('can:supervisor');
 
 Route::get('bni', 'App\Http\Controllers\DataBniController@index')->name('bni.index');
 Route::get('bni/{bni}', 'App\Http\Controllers\DataBniController@proses')->name('bni.proses');

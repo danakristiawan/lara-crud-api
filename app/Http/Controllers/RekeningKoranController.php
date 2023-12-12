@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use DataTables;
-use Illuminate\Http\Request;
 use App\Models\RekeningKoran;
-use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use DataTables;
 
 class RekeningKoranController extends Controller
 {
