@@ -11,13 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('data_rekening_koran', function (Blueprint $table) {
+        Schema::create('nota', function (Blueprint $table) {
             $table->id();
+            $table->string('kode_satker');
             $table->string('nomor');
-            $table->string('tanggal');
-            $table->string('tipe');
-            $table->string('nominal');
-            $table->string('uraian');
             $table->timestamps();
         });
     }
@@ -27,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('data_rekening_koran');
+        Schema::dropIfExists('nota');
     }
 };

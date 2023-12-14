@@ -40,23 +40,32 @@ Route::controller(App\Http\Controllers\Auth\SsoController::class)->group(functio
     Route::get('signout', 'signout')->name('signout')->middleware('auth');
 });
 
-
 Route::get('home', function () {
     return view('home');
 })->name('home')->middleware('auth');
 
+
+
 Route::get('data-rekening/print', ['App\Http\Controllers\DataRekeningController', 'print'])->name('data-rekening.print')->middleware('can:operator');
 
 Route::resource('data-rekening', App\Http\Controllers\DataRekeningController::class)->middleware('can:operator');
-// Route::resource('bni', App\Http\Controllers\DataBniController::class)->middleware('can:supervisor');
 Route::resource('user', App\Http\Controllers\UserController::class)->middleware('can:supervisor');
-
-// Route::get('bni', ['App\Http\Controllers\DataBniController', 'index'])->name('bni.index');
 
 Route::get('grafik', 'App\Http\Controllers\ChartController@index')->name('grafik');
 
 Route::resource('referensi-bank', App\Http\Controllers\ReferensiBankController::class)->middleware('can:supervisor');
 Route::resource('rekening-koran', App\Http\Controllers\RekeningKoranController::class)->middleware('can:supervisor');
+Route::resource('buku-kas-umum', App\Http\Controllers\BukuKasUmumController::class)->middleware('can:supervisor');
+Route::resource('ref-nomor-nota', App\Http\Controllers\RefNomorNotaController::class);
 
 Route::get('bni', 'App\Http\Controllers\DataBniController@index')->name('bni.index');
 Route::get('bni/{bni}', 'App\Http\Controllers\DataBniController@proses')->name('bni.proses');
+
+
+Route::resource('data-coba', App\Http\Controllers\DataCobaController::class);
+Route::resource('tes', App\Http\Controllers\TesController::class);
+Route::resource('nota', App\Http\Controllers\NotaController::class);
+Route::resource('ref-nota', App\Http\Controllers\RefNotaController::class);
+Route::resource('data-nota', App\Http\Controllers\DataNotaController::class);
+Route::resource('data-nota', App\Http\Controllers\DataNotaController::class);
+Route::resource('data-test-logic', App\Http\Controllers\DataTestLogicController::class);

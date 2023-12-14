@@ -42,6 +42,8 @@ class DataRekeningController extends Controller
      */
     public function show(DataRekening $dataRekening)
     {
+        $data = $dataRekening->toArray();
+        dd($dataRekening);
         return view('data_rekening.show', compact('dataRekening'));
     }
 

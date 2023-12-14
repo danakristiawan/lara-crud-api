@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Ref User Page')
+@section('title', 'Buku Kas Umum')
 
 @section('content')
     <div class="table-responsive">
@@ -8,14 +8,15 @@
             <thead>
                 <tr>
                     <th>no</th>
-                    <th>nomor</th>
                     <th>tanggal</th>
                     <th>bulan</th>
                     <th>tahun</th>
                     <th>tipe</th>
-                    <th>nominal</th>
+                    <th>jenis</th>
+                    <th>kode</th>
+                    <th>debet</th>
+                    <th>kredit</th>
                     <th>keterangan</th>
-                    <th>aksi</th>
                 </tr>
             </thead>
             <tbody>
@@ -39,16 +40,12 @@
                 const table = $('.data-table').DataTable({
                     processing: true,
                     serverSide: true,
-                    ajax: "{{ route('rekening-koran.index') }}",
+                    ajax: "{{ route('buku-kas-umum.index') }}",
                     columns: [{
                             data: null,
                             render: function(data, type, row, meta) {
                                 return meta.row + meta.settings._iDisplayStart + 1;
                             }
-                        },
-                        {
-                            data: 'nomor_rekening',
-                            name: 'nomor_rekening'
                         },
                         {
                             data: 'tanggal',
@@ -67,38 +64,26 @@
                             name: 'tipe'
                         },
                         {
-                            data: 'nominal',
-                            name: 'nominal'
+                            data: 'jenis',
+                            name: 'jenis'
+                        },
+                        {
+                            data: 'kode',
+                            name: 'kode'
+                        },
+                        {
+                            data: 'debet',
+                            name: 'debet'
+                        },
+                        {
+                            data: 'kredit',
+                            name: 'kredit'
                         },
                         {
                             data: 'keterangan',
                             name: 'keterangan'
                         },
-                        {
-                            data: 'action',
-                            name: 'action',
-                            orderable: false,
-                            searchable: false
-                        },
                     ]
-                });
-
-                $('body').on('click', '#proses', function() {
-                    var id = $(this).data("id");
-                    $.ajax({
-                        data: 'status=' + 1,
-                        type: "PUT",
-                        dataType: 'json',
-                        url: "{{ route('rekening-koran.index') }}" + '/' + id,
-                        success: function(data) {
-                            table.draw();
-                            toastr.success('Data has been proceed successfully!');
-                            console.log(data);
-                        },
-                        error: function(data) {
-                            console.log('Error:', data);
-                        }
-                    });
                 });
 
             });

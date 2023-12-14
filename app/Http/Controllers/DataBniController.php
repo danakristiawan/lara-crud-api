@@ -101,11 +101,15 @@ class DataBniController extends Controller
 
         foreach ($cols as $col) {
             RekeningKoran::create([
-                'nomor' =>$col[0],
-                'tanggal' => $col[1],
+                'kode_satker' => auth()->user()->kode_satker,
+                'nomor_rekening' => $col[0],
+                'nama_bank' => 'BNI',
+                'tanggal' => substr($col[1],4,2),
+                'bulan' => substr($col[1],2,2),
+                'tahun' => substr($col[1],0,2),
                 'tipe' => $col[2],
                 'nominal' =>$col[3],
-                'uraian' => $col[4],
+                'keterangan' => $col[4],
             ]);
         }
 

@@ -4,9 +4,9 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Database\Seeders\UserSeeder;
-use Database\Seeders\DataRekeningSeeder;
-use Database\Seeders\ReferensiBankSeeder;
+use Database\Seeders\RefNotaSeeder;
+use Database\Seeders\DataNotaSeeder;
+use Database\Seeders\DataTestLogicSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -15,17 +15,18 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        \App\Models\DataTransaksi::factory(10)->create();
+        // \App\Models\DataTransaksi::factory(77)->create();
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
 
-        // $this->call([
-        //     ReferensiBankSeeder::class,
-        //     DataRekeningSeeder::class,
-        //     UserSeeder::class,
-        // ]);
+        $this->call([
+            // ReferensiBankSeeder::class,
+            // DataRekeningSeeder::class,
+            // UserSeeder::class,
+            DataTestLogicSeeder::class,
+        ]);
     }
 }

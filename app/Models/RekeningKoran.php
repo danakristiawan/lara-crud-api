@@ -9,7 +9,26 @@ class RekeningKoran extends Model
 {
     use HasFactory;
 
-    protected $table = 'data_rekening_koran';
+    protected $table = 'rekening_koran';
 
-    protected $fillable = ['nomor', 'tanggal', 'tipe', 'nominal', 'uraian'];
+    protected $fillable = [
+        'kode_satker',
+        'nama_bank',
+        'nomor_rekening',
+        'tanggal',
+        'bulan',
+        'tahun',
+        'tipe',
+        'nominal',
+        'keterangan',
+        'status'
+    ];
+
+    public function scopeActivePersatker()
+    {
+        return $this->where([
+            'kode_satker' => auth()->user()->kode_satker,
+            'status' => '0'
+        ]);
+    }
 }

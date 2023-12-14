@@ -2,65 +2,68 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Models\RefNomorNota;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use DataTables;
 
-class UserController extends Controller
+class RefNomorNotaController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     */
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = User::latest()->get();
+            $data = RefNomorNota::latest()->get();
             return DataTables::of($data)
                     ->addIndexColumn()
                     ->addColumn('action', function($row){
-                        $detail = '<a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#myModal" data-id="'.$row->id.'" class="btn btn-primary btn-sm" id="detail">Detail</a>';
                         $ubah = '<a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#myModal" data-id="'.$row->id.'" class="btn btn-primary btn-sm ms-1" id="ubah">Ubah</a>';
                         $hapus = ' <a href="javascript:void(0)" data-id="'.$row->id.'" class="btn btn-primary btn-sm" id="hapus">Hapus</a>';
-                        $button = $detail.$ubah.$hapus;
+                        $button = $ubah.$hapus;
                         return $button;
                     })
                     ->rawColumns(['action'])
                     ->make(true);
         }
-        return view('user');
+        return view('ref_nomor_nota');
     }
 
     public function store(Request $request)
     {
         $request->validate($this->validation());
-        User::create($request->all());
+        RefNomorNota::create($request->all());
         return response()->json(['success' => 'Data has been created successfully!']);
     }
 
-    public function show(User $user)
+    public function show($id)
     {
-        return response()->json($user);
+        $refNomorNota = RefNomorNota::findOrFail($id);
+        return response()->json($refNomorNota);
     }
 
-    public function update(Request $request, User $user)
+    public function update(Request $request, $id)
     {
         $request->validate($this->validation());
-        $user->fill($request->post())->save();
+        $refNomorNota = RefNomorNota::findOrFail($id);
+        $refNomorNota->fill($request->post())->save();
         return response()->json(['success' => 'Data has been updated successfully!']);
     }
 
-    public function destroy(User $user)
+    public function destroy($id)
     {
-        $user->delete();
+        $refNomorNota = RefNomorNota::findOrFail($id);
+        $refNomorNota->delete();
 
-        return response()->json(['success' => 'Data has been deleted successfully!']);
+        return response()->json($refNomorNota);
     }
 
     public function validation()
     {
         return [
-            'nama' => 'required',
-            'nip' => 'required',
             'kode_satker' => 'required',
-            'password' => 'required',
-            'role' => 'required',
+            'nomor' => 'required',
         ];
     }
 }
