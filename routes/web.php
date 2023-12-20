@@ -69,3 +69,5 @@ Route::resource('ref-nota', App\Http\Controllers\RefNotaController::class);
 Route::resource('data-nota', App\Http\Controllers\DataNotaController::class);
 Route::resource('data-nota', App\Http\Controllers\DataNotaController::class);
 Route::resource('data-test-logic', App\Http\Controllers\DataTestLogicController::class);
+
+Route::get('gfx', App\Http\Controllers\GfxController::class);
