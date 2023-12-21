@@ -22,7 +22,7 @@ class DataBniController extends Controller
 
         if ($request->ajax()) {
 
-            $files =  json_decode(Storage::disk('public')->get('response.json'), false);
+            $files =  json_decode(Storage::disk('public')->get('responseBni.json'), false);
 
             // $files =  json_decode(Storage::disk('sftp_bni')->files(), false);
 
