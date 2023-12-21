@@ -11,6 +11,8 @@
             class="list-group-item list-group-item-action {{ Request::is('buku-kas-umum') ? 'active' : '' }}">Buku Kas Umum</a>
         <a href="{{ route('bni.index') }}"
             class="list-group-item list-group-item-action {{ Request::is('bni') ? 'active' : '' }}">Data BNI</a>
+        <a href="{{ route('mandiri.index') }}"
+            class="list-group-item list-group-item-action {{ Request::is('mandiri') ? 'active' : '' }}">Data Mandiri</a>
         <a href="{{ route('ref-nomor-nota.index') }}"
             class="list-group-item list-group-item-action {{ Request::is('ref-nomor-nota') ? 'active' : '' }}">Ref Nomor
             Nota</a>

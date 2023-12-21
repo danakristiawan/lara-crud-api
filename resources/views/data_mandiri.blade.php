@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Data BNI Page')
+@section('title', 'Data Mandiri Page')
 
 @section('content')
 
@@ -36,7 +36,7 @@
                 const table = $('.data-table').DataTable({
                     processing: true,
                     serverSide: true,
-                    ajax: "{{ route('bni.index') }}",
+                    ajax: "{{ route('mandiri.index') }}",
                     columns: [{
                             data: null,
                             render: function(data, type, row, meta) {

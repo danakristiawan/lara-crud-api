@@ -60,6 +60,8 @@ Route::resource('ref-nomor-nota', App\Http\Controllers\RefNomorNotaController::c
 
 Route::get('bni', 'App\Http\Controllers\DataBniController@index')->name('bni.index');
 Route::get('bni/{bni}', 'App\Http\Controllers\DataBniController@proses')->name('bni.proses');
+Route::get('mandiri', 'App\Http\Controllers\DataMandiriController@index')->name('mandiri.index');
+Route::get('mandiri/{mandiri}', 'App\Http\Controllers\DataMandiriController@proses')->name('mandiri.proses');
 
 
 Route::resource('data-coba', App\Http\Controllers\DataCobaController::class);

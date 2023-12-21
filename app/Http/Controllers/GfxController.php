@@ -10,13 +10,22 @@ class GfxController extends Controller
 {
     public function __invoke()
     {
+        // try {
+        //     $files = Storage::disk('sftp_bni')->files();
+        // } catch (\Throwable $th) {
+        //     throw $th;
+        // }
+
+        // return response()->json($files);
+
         try {
-            $files = Storage::disk('sftp_bni')->files();
+            $files = Storage::disk('sftp_mandiri')->files();
         } catch (\Throwable $th) {
             throw $th;
         }
 
         return response()->json($files);
+
         // $files['file'] = $files['file'];
         // foreach ($files as $file) {
             // $gfx = Gfx::insert([

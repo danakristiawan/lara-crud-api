@@ -17,13 +17,13 @@ class DataBniController extends Controller
     {
         if ($request->ajax()) {
 
-            $files =  json_decode(Storage::disk('public')->get('response.json'), false);
+            // $files =  json_decode(Storage::disk('public')->get('responseBni.json'), false);
 
             // $files =  json_decode(Storage::disk('sftp_bni')->files(), false);
 
             // $files = Gfx::all()->filename;
 
-            $files =  json_decode(Storage::disk('public')->get('response.json'), false);
+            $files =  json_decode(Storage::disk('public')->get('responseBni.json'), false);
             $arr = collect();
             $nomor_rekening_lelang = ReferensiBank::lelangPerSatker()->first()->nomor_rekening;
             foreach ($files as $file) {
@@ -49,7 +49,7 @@ class DataBniController extends Controller
                     ->rawColumns(['action'])
                     ->make(true);
         }
-        return view('data_bni.index');
+        return view('data_bni');
 
     }
 
