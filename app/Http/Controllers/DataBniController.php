@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use stdClass;
 use DataTables;
+use App\Models\Gfx;
 use Illuminate\Http\Request;
 use App\Models\ReferensiBank;
 use App\Models\RekeningKoran;
@@ -14,18 +15,15 @@ class DataBniController extends Controller
 
     public function index(Request $request)
     {
-        // try {
-            //     $files = Storage::disk('sftp_bni')->files();
-            // } catch (\Throwable $th) {
-                //     throw $th;
-                // }
-
         if ($request->ajax()) {
 
-            $files =  json_decode(Storage::disk('public')->get('responseBni.json'), false);
+            $files =  json_decode(Storage::disk('public')->get('response.json'), false);
 
             // $files =  json_decode(Storage::disk('sftp_bni')->files(), false);
 
+            // $files = Gfx::all()->filename;
+
+            $files =  json_decode(Storage::disk('public')->get('response.json'), false);
             $arr = collect();
             $nomor_rekening_lelang = ReferensiBank::lelangPerSatker()->first()->nomor_rekening;
             foreach ($files as $file) {
