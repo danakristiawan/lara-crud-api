@@ -17,7 +17,7 @@
         <div class="col-lg-3 col-md-6 mt-2">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Nota Penerimaan</h5>
+                    <h5 class="card-title">Jurnal</h5>
                     <h3 class="card-text">43</h3>
                     <h6 class="card-subtitle mb-2 text-body-secondary">transaksi telah diproses</h6>
                 </div>
@@ -26,7 +26,7 @@
         <div class="col-lg-3 col-md-6 mt-2">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Nota Pengeluaran</h5>
+                    <h5 class="card-title">Pembukuan</h5>
                     <h3 class="card-text">56</h3>
                     <h6 class="card-subtitle mb-2 text-body-secondary">transaksi telah diproses</h6>
                 </div>
@@ -35,7 +35,7 @@
         <div class="col-lg-3 col-md-6 mt-2">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Pembukuan</h5>
+                    <h5 class="card-title">Arsip</h5>
                     <h3 class="card-text">436</h3>
                     <h6 class="card-subtitle mb-2 text-body-secondary">transaksi telah dibukukan</h6>
                 </div>
