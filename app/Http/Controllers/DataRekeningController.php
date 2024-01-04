@@ -11,7 +11,12 @@ class DataRekeningController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function __construct()
+    {
+
+    }
+
+     public function index()
     {
         return view('data_rekening.index', [
             'dataRekening' => DataRekening::persatker()->paginate(10),

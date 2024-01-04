@@ -57,6 +57,7 @@ Route::resource('referensi-bank', App\Http\Controllers\ReferensiBankController::
 Route::resource('rekening-koran', App\Http\Controllers\RekeningKoranController::class)->middleware('can:supervisor');
 Route::resource('buku-kas-umum', App\Http\Controllers\BukuKasUmumController::class)->middleware('can:supervisor');
 Route::resource('ref-nomor-nota', App\Http\Controllers\RefNomorNotaController::class);
+Route::resource('menu', App\Http\Controllers\MenuController::class)->middleware('can:administrator');
 
 Route::get('bni', 'App\Http\Controllers\DataBniController@index')->name('bni.index');
 Route::get('bni/{bni}', 'App\Http\Controllers\DataBniController@proses')->name('bni.proses');
